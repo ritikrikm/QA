@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QA Automation Portfolio - Eclipse STS Experience</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="eclipse-shell">
+      <header class="top-bar">
+        <div class="top-left">
+          <div class="sts-badge">STS</div>
+          <div class="toolbar">
+            <button class="tool-button run" data-action="run">▶ Run</button>
+            <button class="tool-button debug" data-action="debug">🐞 Debug</button>
+            <button class="tool-button build" data-action="build">⚙ Build</button>
+            <button class="tool-button clean" data-action="clean">🧹 Clean</button>
+          </div>
+        </div>
+        <div class="top-right">
+          <input id="global-search" type="search" placeholder="Search (Ctrl+H)" />
+          <div class="window-controls">
+            <span>—</span>
+            <span>◻</span>
+            <span>✕</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="explorer">
+          <div class="explorer-header">
+            <span>Package Explorer</span>
+            <input id="tree-search" type="search" placeholder="Filter" />
+          </div>
+          <div id="file-tree" class="file-tree"></div>
+        </aside>
+
+        <main class="editor-area">
+          <div id="tabs" class="tabs"></div>
+          <div class="editor-toolbar">
+            <span id="active-file-label">QA-Automation-Portfolio</span>
+            <button id="run-active" class="tool-button run small" data-action="run">▶ Run</button>
+          </div>
+          <div id="editor" class="editor">
+            <div class="editor-placeholder">
+              Open a file from the Package Explorer to explore the framework.
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <section class="console">
+        <div class="console-header">
+          <span>Console</span>
+          <div class="console-actions">
+            <button id="clear-console" class="tool-button small">Clear</button>
+          </div>
+        </div>
+        <pre id="console-output" class="console-output"></pre>
+      </section>
+
+      <footer class="status-bar">
+        <div id="status-left">Ready</div>
+        <div id="status-right">Ln 1, Col 1 | UTF-8 | Java</div>
+      </footer>
+    </div>
+
+    <div id="activity-indicator" class="activity-indicator">
+      <div class="activity-bar"></div>
+      <span id="activity-label">Building workspace...</span>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
