@@ -1,0 +1,470 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;600&display=swap");
+
+:root {
+  color-scheme: dark;
+  --bg: #1b1e24;
+  --panel: #22262d;
+  --panel-2: #2a2f38;
+  --panel-3: #303642;
+  --border: #3b4250;
+  --text: #d9dde7;
+  --muted: #9aa4b2;
+  --accent: #4fa3ff;
+  --accent-2: #f1c65f;
+  --green: #7bd88f;
+  --red: #f2777a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  height: 100vh;
+}
+
+.eclipse-shell {
+  display: grid;
+  grid-template-rows: 52px 1fr 210px 26px;
+  height: 100vh;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background: linear-gradient(90deg, #2b3038, #1f232a);
+  border-bottom: 1px solid var(--border);
+}
+
+.top-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sts-badge {
+  background: #3b4250;
+  color: var(--accent-2);
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+}
+
+.tool-button {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.tool-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.tool-button.small {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.tool-button.run {
+  color: var(--green);
+}
+
+.tool-button.debug {
+  color: var(--accent);
+}
+
+.tool-button.build {
+  color: var(--accent-2);
+}
+
+.tool-button.clean {
+  color: var(--red);
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#global-search,
+#tree-search {
+  background: #1f242c;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 12px;
+  width: 200px;
+  font-family: "Inter", sans-serif;
+}
+
+#tree-search {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100%;
+}
+
+.explorer {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.explorer-header {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.file-tree {
+  padding: 10px;
+  overflow: auto;
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+}
+
+.tree-node {
+  list-style: none;
+}
+
+.node-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.node-row:hover {
+  background: var(--panel-3);
+}
+
+.node-row.active {
+  background: rgba(79, 163, 255, 0.2);
+  border: 1px solid rgba(79, 163, 255, 0.4);
+}
+
+.node-row .label {
+  flex: 1;
+}
+
+.node-row .mini-run {
+  background: transparent;
+  border: none;
+  color: var(--green);
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.node-row:hover .mini-run {
+  opacity: 1;
+}
+
+.tree-children {
+  margin-left: 16px;
+  border-left: 1px dashed rgba(255, 255, 255, 0.05);
+  padding-left: 10px;
+}
+
+.tree-node.collapsed > .tree-children {
+  display: none;
+}
+
+.tree-node.hidden {
+  display: none;
+}
+
+.arrow {
+  color: var(--muted);
+  width: 12px;
+  text-align: center;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.icon.folder {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23f1c65f'><path d='M10 4l2 2h8a2 2 0 012 2v9a3 3 0 01-3 3H5a3 3 0 01-3-3V6a2 2 0 012-2h6z'/></svg>");
+}
+
+.icon.project {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%234fa3ff'><path d='M3 4h18v4H3V4zm0 6h18v10H3V10z'/></svg>");
+}
+
+.icon.java {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23ff8f5f'><path d='M6 2h9l5 5v15a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z'/></svg>");
+}
+
+.icon.xml {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%237bd88f'><path d='M4 2h16v20H4z'/></svg>");
+}
+
+.editor-area {
+  background: #1c2027;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px 0 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+  min-height: 34px;
+  overflow-x: auto;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--panel-2);
+  border: 1px solid transparent;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.tab.active {
+  background: #1c2027;
+  color: var(--text);
+  border-color: var(--border);
+  border-bottom: 1px solid #1c2027;
+}
+
+.tab .close {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.editor-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+}
+
+.editor {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  font-family: "Fira Code", monospace;
+}
+
+.editor-placeholder {
+  padding: 24px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.editor-content {
+  padding: 16px 24px 24px 24px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.25s ease;
+}
+
+.editor-content.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.code-lines {
+  counter-reset: line;
+  list-style: none;
+}
+
+.code-lines li {
+  counter-increment: line;
+  display: flex;
+  gap: 16px;
+  padding: 2px 0;
+}
+
+.code-lines li::before {
+  content: counter(line);
+  width: 32px;
+  text-align: right;
+  color: #5b6474;
+}
+
+.code-line {
+  white-space: pre;
+}
+
+.kw {
+  color: #c792ea;
+}
+
+.type {
+  color: #82aaff;
+}
+
+.string {
+  color: #ecc48d;
+}
+
+.comment {
+  color: #6a9955;
+}
+
+.annotation {
+  color: #ffcb6b;
+}
+
+.method {
+  color: #7bd88f;
+}
+
+.const {
+  color: #f78c6c;
+}
+
+.xml-tag {
+  color: #82aaff;
+}
+
+.xml-attr {
+  color: #ffcb6b;
+}
+
+.console {
+  background: #111317;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel-2);
+  font-size: 12px;
+}
+
+.console-output {
+  flex: 1;
+  padding: 12px;
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+  overflow: auto;
+  color: #cfd6e6;
+  white-space: pre-wrap;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px;
+  background: var(--panel-3);
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.activity-indicator {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background: rgba(34, 38, 45, 0.95);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.activity-indicator.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.activity-bar {
+  width: 80px;
+  height: 6px;
+  background: #1f242c;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.activity-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: activity 1.2s infinite;
+}
+
+@keyframes activity {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
